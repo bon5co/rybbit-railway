@@ -4,7 +4,7 @@ set -euo pipefail
 
 LISTEN_PORT="${PORT:-8080}"
 CLIENT_PORT="${CLIENT_PORT:-3002}"
-BACKEND_UPSTREAM="${BACKEND_UPSTREAM:-backend:3001}"
+BACKEND_UPSTREAM="${BACKEND_UPSTREAM:-backend.railway.internal:3001}"
 
 # Railway variables are often written as full URLs or bare hosts; nginx wants host:port.
 BACKEND_UPSTREAM="${BACKEND_UPSTREAM#http://}"

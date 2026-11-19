@@ -22,7 +22,7 @@ RUN chmod +x /usr/local/bin/railway-entrypoint.sh
 
 ENV PORT=8080 \
     CLIENT_PORT=3002 \
-    BACKEND_UPSTREAM=backend:3001
+    BACKEND_UPSTREAM=backend.railway.internal:3001
 
 EXPOSE 8080
 ENTRYPOINT ["/usr/local/bin/railway-entrypoint.sh"]
