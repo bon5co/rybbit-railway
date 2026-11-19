@@ -5,7 +5,7 @@
 # to whoever reaches the sign-up form first. The entrypoint creates the admin
 # from ADMIN_EMAIL / ADMIN_PASSWORD, then starts the app with DISABLE_SIGNUP=true.
 # upstream: rybbit-io/rybbit
-FROM ghcr.io/rybbit-io/rybbit-backend@sha256:2e87bf8be399da2cb5dede1c6edc746abd59472f89e88dc36cc28656875f24a9
+FROM ghcr.io/rybbit-io/rybbit-backend:v2.9.3@sha256:2e87bf8be399da2cb5dede1c6edc746abd59472f89e88dc36cc28656875f24a9
 
 COPY railway-entrypoint.sh /railway-entrypoint.sh
 RUN chmod +x /railway-entrypoint.sh

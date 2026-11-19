@@ -5,7 +5,7 @@
 # deploy needs what a compose volume does not: the volume is mounted root-owned and
 # carries a lost+found directory that ClickHouse would treat as a database.
 # upstream: ClickHouse/ClickHouse
-FROM clickhouse/clickhouse-server@sha256:85c434814ac8905e5648027ce926f74ab067edd6aadbccb6c0c165cd3571ea49
+FROM clickhouse/clickhouse-server:26.3.17.4@sha256:85c434814ac8905e5648027ce926f74ab067edd6aadbccb6c0c165cd3571ea49
 
 COPY config/logging_rules.xml /etc/clickhouse-server/config.d/logging_rules.xml
 COPY config/resource_limits.xml /etc/clickhouse-server/config.d/resource_limits.xml

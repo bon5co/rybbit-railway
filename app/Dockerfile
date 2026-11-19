@@ -5,7 +5,7 @@
 # service for that; here nginx runs beside the client it fronts, which removes
 # a whole always-on service and keeps the backend off the public internet.
 # upstream: rybbit-io/rybbit
-FROM ghcr.io/rybbit-io/rybbit-client@sha256:39947e9e4da4248de27f78e2fa691eb86654945dff7b74c1d732b78f13273fb3
+FROM ghcr.io/rybbit-io/rybbit-client:v2.9.3@sha256:39947e9e4da4248de27f78e2fa691eb86654945dff7b74c1d732b78f13273fb3
 
 USER root
 
