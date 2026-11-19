@@ -1,0 +1,44 @@
+# Railway's private network is DNS-resolved at runtime; a hostname baked into
+# proxy_pass at startup would pin the address of whatever the backend was when
+# this container booted.
+resolver __RESOLVER__ valid=10s;
+
+map $http_upgrade $connection_upgrade {
+  default upgrade;
+  ""      close;
+}
+
+server {
+  listen __LISTEN_PORT__ default_server;
+  listen [::]:__LISTEN_PORT__ default_server;
+  server_name _;
+
+  client_max_body_size 10m;
+
+  # Public sign-up is closed on the instance, and refused here too so the one
+  # moment the backend runs with sign-up open at first boot is never reachable.
+  location = /api/auth/sign-up/email {
+    default_type application/json;
+    return 403 '{"message":"Sign-up is disabled on this instance"}';
+  }
+
+  # Variable upstream with no URI part: nginx forwards the original request URI
+  # untouched, which is what the API expects.
+  location /api/ {
+    set $rybbit_backend "__BACKEND_UPSTREAM__";
+    proxy_pass http://$rybbit_backend;
+    include /etc/nginx/railway-proxy.conf;
+  }
+
+  location ~ ^/\.well-known/(oauth-|openid-configuration) {
+    set $rybbit_backend "__BACKEND_UPSTREAM__";
+    proxy_pass http://$rybbit_backend;
+    include /etc/nginx/railway-proxy.conf;
+  }
+
+  location / {
+    set $rybbit_client "127.0.0.1:__CLIENT_PORT__";
+    proxy_pass http://$rybbit_client;
+    include /etc/nginx/railway-proxy.conf;
+  }
+}
